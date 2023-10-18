@@ -293,14 +293,46 @@ public class PlayQueue {
 		}
 	}
 
+	public int size() {
+		if (this.isEmpty()) {
+			return 0;
+		} else {
+			return size(this.firstSong, 0);
+		}
+	}
+
+	public int size(SongLink head, int result) {
+		if (head == null) {
+			System.out.println(result);
+			return result;
+		} else {
+			return size(head.link, result+1);
+		}
+	}
+
 	/**
 	 * 
 	 * @return a Playlist object containing all the songs in the PlayQueue, in
 	 *         reversed order. The original list should not be modified.
 	 */
 	public Playlist reversed() {
-		// TODO To be completed
-		return null;
+		if (this.isEmpty()) {
+			return null;
+		} else {
+			// find size of playlist required
+			Playlist result = new Playlist();
+			result.songs = new Song[size()];
+			return reversed(0, result, this.firstSong);
+		}
+	}
+
+	public Playlist reversed(int index, Playlist result, SongLink adding) {
+		if (adding == null) {
+			return result;
+		} else {
+			result.songs[size() - 1 - index] = adding.song;
+			return reversed(index+1, result, adding.link);
+		}
 	}
 	
 	/**
