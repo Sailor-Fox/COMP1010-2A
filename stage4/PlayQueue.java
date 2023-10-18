@@ -346,7 +346,43 @@ public class PlayQueue {
 	 * "bestOfInPlace()" will check for this and is worth 0 marks.
 	 */
 	public void bestOf() {
-		// TODO To be completed
+		if (this.firstSong == null) {
+			return;
+		} else {
+			bestOf(this.firstSong, this.firstSong.link, this.firstSong.song.artist, this.firstSong, null);
+		}
+	}
+
+	public void bestOf(SongLink i, SongLink j, Artist artist, SongLink beforeJ, SongLink beforeI) {
+		if (i.link == null) {
+			this.lastSong = i;
+			return;
+		} else if (j == null) {
+			bestOf(i.link, i.link.link, i.link.song.artist, i.link, beforeI.link);
+		} else {
+			if (j.song.artist == artist) {
+				// compare ratings and keep highest
+				if (j.song.averageRating() > i.song.averageRating()) {
+					// get rid of i (add variable, beforeI, and when beforeI == null need to update this.firstSong)
+					// also don't forget to update this.lastSong when we are done with everything
+					if (beforeI == null) {
+						// i is the firstSong of the PlayQueue
+						this.firstSong = i.link;
+						bestOf(); // resets the situation to when first called
+					} else {
+						beforeI.link = i.link;
+						bestOf(i.link, i.link.link, i.link.song.artist, i.link, beforeI);
+					}
+				} else {
+					// get rid of j (will need extra variable, beforeJ)
+					beforeJ.link = j.link;
+					bestOf(i, beforeJ.link, artist, beforeJ, beforeI);
+				}
+			} else {
+				// move to next song (next j) after doing nothing
+				bestOf(i, j.link, artist, beforeJ.link, beforeI);
+			}
+		}
 	}
 
 	public String toString() {
