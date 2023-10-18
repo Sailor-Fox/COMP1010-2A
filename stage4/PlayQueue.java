@@ -235,23 +235,23 @@ public class PlayQueue {
 
 	public boolean contains(Song songCheck) {
 		if (songCheck == null) {
-			System.out.println("vacuous truth");
+			// System.out.println("vacuous truth");
 			return true; // vacuous truth
 		} else {
-			System.out.println("do the recursion one");
+			// System.out.println("do the recursion one");
 			return contains(songCheck, this.firstSong);
 		}
 	}
 
 	public boolean contains(Song songCheck, SongLink inQueue) {
 		if (inQueue == null) {
-			System.out.println("false");
+			// System.out.println("false");
 			return false;
 		} else if (songCheck.equalsTo(inQueue.song)) {
-			System.out.println("true");
+			// System.out.println("true");
 			return true;
 		} else {
-			System.out.println("recurse");
+			// System.out.println("recurse");
 			return contains(songCheck, inQueue.link);
 		}
 	}
@@ -277,14 +277,15 @@ public class PlayQueue {
 		if (this.isEmpty()) {
 			return;
 		} else {
+			this.lastSong = this.firstSong;
 			reversePlayQueue(null, this.firstSong, this.firstSong.link);
 		}
 	}
 
 	public void reversePlayQueue(SongLink before, SongLink current, SongLink after) {
 		if (after == null) {
-			this.firstSong = this.lastSong;
-			this.lastSong = current;
+			current.link = before;
+			this.firstSong = current;
 			return;
 		} else {
 			current.link = before;
