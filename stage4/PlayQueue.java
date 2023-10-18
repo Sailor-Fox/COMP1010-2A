@@ -274,9 +274,22 @@ public class PlayQueue {
 	 * firstSong and lastSong should be updated. nowPlaying should be retained.
 	 */
 	public void reversePlayQueue() {
-		// TODO To be completed
-		temp = this.firstSong;
-		
+		if (this.isEmpty()) {
+			return;
+		} else {
+			reversePlayQueue(null, this.firstSong, this.firstSong.link);
+		}
+	}
+
+	public void reversePlayQueue(SongLink before, SongLink current, SongLink after) {
+		if (after == null) {
+			this.firstSong = this.lastSong;
+			this.lastSong = current;
+			return;
+		} else {
+			current.link = before;
+			reversePlayQueue(current, after, after.link);
+		}
 	}
 
 	/**
