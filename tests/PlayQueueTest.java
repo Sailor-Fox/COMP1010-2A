@@ -1342,9 +1342,9 @@ public class PlayQueueTest {
 		queue.nowPlaying = null;
 		queue.firstSong = link1;
 		queue.lastSong = link8;
-
+		
 		queue.bestOf();
-
+		
 		assertTrue(tay[0] == queue.firstSong.song);
 		assertTrue(null == queue.firstSong.link);
 		assertTrue(tay[0] == queue.lastSong.song);

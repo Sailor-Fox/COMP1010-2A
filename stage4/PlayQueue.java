@@ -358,9 +358,9 @@ public class PlayQueue {
 			this.lastSong = i;
 			return;
 		} else if (j == null) {
-			bestOf(i.link, i.link.link, i.link.song.artist, i.link, beforeI.link);
+			bestOf(i.link, i.link.link, i.link.song.artist, i.link, i);
 		} else {
-			if (j.song.artist == artist) {
+			if (j.song.artist.name.equals(artist.name)) {
 				// compare ratings and keep highest
 				if (j.song.averageRating() > i.song.averageRating()) {
 					// get rid of i (add variable, beforeI, and when beforeI == null need to update this.firstSong)
